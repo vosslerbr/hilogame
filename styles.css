@@ -1,0 +1,118 @@
+:root {
+    --main-font: 'Roboto', sans-serif;
+    --bg-gradient-dark: linear-gradient(#090E17, #202939);
+    --dark-blue: #090E17;
+    --white: #f7f7f7;
+    --green: #8EFFA7;
+    --red: #FF8E8E;
+    --input-bg-color: #202939;
+    --border-radius: 5px;
+}
+
+body {
+    font-family: var(--main-font);
+    background-image: var(--bg-gradient-dark);
+    background-repeat: no-repeat;
+    height: 100vh;
+    color: var(--white);
+    padding: 1rem;
+}
+
+h1, h2 {
+    text-align: center;
+}
+
+h1 {
+    font-size: 4rem;
+    margin-top: 4rem;
+    font-weight: 700;
+}
+
+h2 {
+    font-size: 2rem;
+    margin: 1rem auto 3rem auto;
+    font-weight: 500;
+}
+
+#gameContainer {
+    max-width: 648px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(3, auto);
+    column-gap: 1rem;
+}
+
+input, button {
+    border: none;
+    font-size: 1.25rem;
+    padding: 0.75rem 1rem;
+    font-family: var(--main-font);
+    color: var(--dark-blue);
+    border-radius: var(--border-radius);
+}
+
+input {
+    grid-column: 1 / 5;
+}
+
+#submitGuess {
+    grid-column: 5 / -1;
+    background-color: var(--green);
+}
+
+#startResetButton {
+    grid-column: 1 / -1;
+    width: 100%;
+    max-width: 205px;
+    margin: 2rem auto 3rem auto;
+    background-color: var(--red);
+}
+
+#outputDiv {
+    font-size: 1.25rem;
+}
+
+#outputDiv p {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 3rem;
+}
+
+img {
+    width: 24px;
+    margin-left: 0.5rem;
+}
+
+#instructionsModal {
+    width: calc(100% - 4rem);
+    margin: 0 auto 0 -1rem;
+    background-color: var(--white);
+    color: var(--dark-blue);
+    padding: 2rem;
+    text-align: center;
+    font-size: 1.25rem;
+    border-radius: var(--border-radius);
+    transition: 1s;
+    position: absolute;
+    top: 0;
+}
+
+h3 {
+    font-size: 3rem;
+    margin-bottom: 2rem;
+    font-weight: 700;
+}
+
+#instructionsModal p {
+    max-width: 400px;
+    margin: 0 auto 2rem auto;
+    line-height: 1.5rem;
+    font-weight: 200;
+}
+
+li {
+    margin-bottom: 1rem;
+}
