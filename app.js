@@ -1,72 +1,82 @@
 const gameData = {
     answer: 0,
+    userGuessInput: document.getElementById('userGuessInput'),
+    startResetButton: document.getElementById('startResetButton'),
+    userGuessSubmit: document.getElementById('submitGuess'),
+    output: document.getElementById('outputDiv'),
 }
 
 function startGame() {
-    let answer = Math.floor(Math.random() * 1000);
-    let userGuessSubmit = document.getElementById('submitGuess');
-    let startResetButton = document.getElementById('startResetButton');
-    userGuessSubmit.disabled = false;
+    gameData.answer = Math.floor(Math.random() * 1000);
 
-    gameData.answer = answer;
+    gameData.userGuessSubmit.style.backgroundColor = 'var(--green)';
+    gameData.userGuessSubmit.style.opacity = '1';
+    gameData.userGuessSubmit.style.color = 'var(--dark-blue)';
+
+    gameData.userGuessSubmit.disabled = false;
     
-    startResetButton.textContent = 'Reset';
+    gameData.startResetButton.textContent = 'Reset';
 
-    console.log(answer);
+    console.log(gameData.answer);
 
     clearOutput();
 }
 
 function clearOutput() {
-    const output = document.getElementById('outputDiv');
-    while (output.firstChild) {
-    output.removeChild(output.lastChild);
+    while (gameData.output.firstChild) {
+    gameData.output.removeChild(gameData.output.lastChild);
     }
 }
-
 
 
 function checkAnswer() {
 
     let answer = gameData.answer;
-    const userGuessInput = document.getElementById('userGuessInput');
-    let guess = userGuessInput.value;
+    let guess = gameData.userGuessInput.value;
 
-    let icon = '';
-    let output = '';
-
-    if (Math.abs(answer - guess) <= 10 && Math.abs(answer - guess) > 0) {
-        icon = 'fire';
-    } else if (Math.abs(answer - guess) >= 100) {
-        icon = 'ice';
-    }
-
-    if (guess < answer) {
-        console.log('TOO LOW');
-        output = 'Too Low';
-    } else if (guess > answer) {
-        console.log('TOO HIGH');
-        output = 'Too High';
+    if (guess === '' || guess === NaN) {
+        alert('Please enter a valid guess');
     } else {
-        console.log('YOU WIN!');
-        output = 'You Win!';
-        endGame();
-    }
+        let icon = '';
+        let output = '';
 
-    printOutput(output, icon);
-    userGuessInput.value = '';
+        if (Math.abs(answer - guess) <= 10 && Math.abs(answer - guess) > 0) {
+            icon = 'fire';
+        } else if (Math.abs(answer - guess) >= 100) {
+            icon = 'ice';
+        }
+
+        if (guess < answer) {
+            console.log('TOO LOW');
+            output = 'Too Low';
+        } else if (guess > answer) {
+            console.log('TOO HIGH');
+            output = 'Too High';
+        } else {
+            console.log('YOU WIN!');
+            output = 'You Win!';
+            endGame();
+        }
+
+        printOutput(guess, output, icon);
+        userGuessInput.value = '';
+    }
 }
 
 function endGame() {
-    let userGuessSubmit = document.getElementById('submitGuess');
-    userGuessSubmit.disabled = true;
+    gameData.userGuessSubmit.disabled = true;
+
+    gameData.userGuessSubmit.style.backgroundColor = 'gray';
+    gameData.userGuessSubmit.style.opacity = '0.5';
+    gameData.userGuessSubmit.style.color = 'var(--white)';
+
+    gameData.startResetButton.textContent = 'New Game';
 }
 
-function printOutput(message, iconName) {
-    console.log(message, iconName);
-    let outputDiv = document.getElementById('outputDiv');
+function printOutput(guess, message, iconName) {
+    let outputDiv = gameData.output;
     let newMessage = document.createElement('p');
-    newMessage.innerText = message;
+    newMessage.innerText = guess + ' - ' + message;
 
     if (iconName) {
         let icon = document.createElement('img');
@@ -75,11 +85,11 @@ function printOutput(message, iconName) {
         newMessage.appendChild(icon);
     }
     
-    outputDiv.appendChild(newMessage);
+    outputDiv.insertBefore(newMessage, outputDiv.firstChild);
 }
 
 function hideModal() {
     let modal = document.getElementById('instructionsModal');
-    modal.style.top = '-400px';
+    modal.style.top = '-800px';
     console.log('clicked')
 }
